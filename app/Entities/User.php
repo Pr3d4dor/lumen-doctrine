@@ -67,6 +67,25 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasPerm
     protected $organisations;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection|Permission[]
      */
     public function getPermissions()
@@ -126,6 +145,44 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasPerm
     public function getOrganisations()
     {
         return $this->organisations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRememberToken()
+    {
+        return $this->rememberToken;
+    }
+
+    /**
+     * @param mixed $rememberToken
+     * @return User
+     */
+    public function setRememberToken($rememberToken)
+    {
+        $this->rememberToken = $rememberToken;
+
+        return $this;
     }
 
     /**
