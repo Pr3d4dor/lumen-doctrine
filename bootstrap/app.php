@@ -74,6 +74,7 @@ $app->register(LaravelDoctrine\ORM\DoctrineServiceProvider::class);
 $app->register(LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class);
 $app->register(LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class);
 $app->register(LaravelDoctrine\Migrations\MigrationsServiceProvider::class);
+$app->register(LaravelDoctrine\ACL\AclServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
