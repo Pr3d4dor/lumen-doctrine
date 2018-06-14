@@ -2,33 +2,34 @@
 
 namespace App\Entities;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\ACL\Contracts\Organisation;
 use LaravelDoctrine\ACL\Mappings as ACL;
-use Illuminate\Auth\Authenticatable;
-use Laravel\Lumen\Auth\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Auth\Passwords\CanResetPassword as CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionContract;
-use LaravelDoctrine\ACL\Permissions\HasPermissions as HasPermissions;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\Role as HasRoleContract;
-use LaravelDoctrine\ACL\Roles\HasRoles as HasRoles;
-use LaravelDoctrine\ACL\Contracts\BelongsToOrganisations as BelongToOrganisations;
+use LaravelDoctrine\ACL\Roles\HasRoles;
+use LaravelDoctrine\ORM\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use LaravelDoctrine\ACL\Contracts\BelongsToOrganisations;
+use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User implements AuthenticatableContract, CanResetPasswordContract, HasPermissionContract, HasRoleContract, BelongToOrganisations
+class User implements AuthenticatableContract, CanResetPasswordContract, HasPermissionContract, HasRoleContract, BelongsToOrganisations
 {
-    use \LaravelDoctrine\ORM\Auth\Authenticatable,
-        CanResetPassword,
+    use CanResetPassword,
         HasPermissions,
-        HasRoles;
+        HasRoles,
+        Authenticatable,
+        Timestamps;
 
     /**
      * @ORM\Id
@@ -183,6 +184,22 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasPerm
         $this->rememberToken = $rememberToken;
 
         return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     /**
